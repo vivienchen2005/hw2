@@ -12,19 +12,32 @@ std::string convToLower(std::string src)
 }
 
 /** Complete the code to convert a string containing a rawWord
-    to a set of words based on the criteria given in the assignment **/
+    to a set of words based on the criteria given in the assignment; 
+    taking a string of many words and splitting them into individual 
+    keywords (split at punctuation, with at least 2 character words)**/
 std::set<std::string> parseStringToWords(string rawWords)
 {
+    std::set<std::string> keywords;
+    string rawWords_lower = convToLower(rawWords);
+    string rawWords_lower_trimmed = ltrim(rawWords_lower);
+    string keyword;
 
+    for (int i = 0; i < rawWords_lower_trimmed.size(); i++) {
+        if (ispunct(rawWords_lower_trimmed[i]) || isspace(rawWords_lower_trimmed[i])) {
+            if (keyword.length() >= 2) {
+                keywords.insert(keyword);
+            }
+            keyword = "";
+        }
+        else {
+            keyword.push_back(rawWords_lower_trimmed[i]);
+        }
+    }
+    if (keyword.length() >= 2) {
+        keywords.insert(keyword);
+    }
 
-
-
-
-
-
-
-
-
+    return keywords;
 }
 
 /**************************************************
