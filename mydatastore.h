@@ -17,6 +17,7 @@ public:
         for (int i = 0; i < products.size(); i++) {
             delete products[i];
         }
+        user_carts.clear();
     }
 
     /**

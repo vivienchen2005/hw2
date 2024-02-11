@@ -106,13 +106,17 @@ int main(int argc, char* argv[])
 	    /* Add support for other commands here */
             else if (cmd == "ADD") {
                 string username;
-                int hit_result_index;
-                if (ss >> username >> hit_result_index) {
-                    ds.add(username, hits[hit_result_index-1]);
-                }
-                else {
-                    cout << "Invalid request";
-                }
+                int hit_index;
+                ss >> username >> hit_index;
+                
+                User* u = ds.getUser(username);
+                if (u == nullptr || hit_index < 0 || hit_index > hits.size()) {
+                    cout << "Invalid request" << endl;
+                    continue;
+                }  
+
+                Product* product = hits[hit_index-1];
+                ds.add(username, product);
             }
             else if (cmd == "VIEWCART") {
                 string username;
@@ -121,6 +125,7 @@ int main(int argc, char* argv[])
                 User* u = ds.getUser(username);
                 if (u == nullptr) {
                     cout << "Invalid username" << endl;
+                    continue;
                 }  
                 ds.view(username);
     
@@ -132,11 +137,10 @@ int main(int argc, char* argv[])
                 User* u = ds.getUser(username);
                 if (u == nullptr) {
                     cout << "Invalid username" << endl;
+                    continue;
                 }  
                 ds.buy(username);
             }
-
-
 
             else {
                 cout << "Unknown command" << endl;
