@@ -59,7 +59,7 @@ void MyDataStore::view(std::string username) {
     std::queue<Product*> copy_user_carts = user_carts[username];
     int i = 1;
     while(!copy_user_carts.empty()) {
-        cout << i << " " << copy_user_carts.front()->displayString() << endl;
+        cout << "Item " << i << "\n" << copy_user_carts.front()->displayString() << endl;
         copy_user_carts.pop();  
         i++;
     }
